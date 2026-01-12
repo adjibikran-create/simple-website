@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About | StudyPlanner</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  
+  body.light { background: linear-gradient(120deg,#a3d9ff,#ffffff); color: #000; }
+  body.dark { background: linear-gradient(120deg,#0b0c2a,#1a1b3b); color: #f0f0f0; }
+  header.navbar { display: flex; justify-content: space-between; padding: 1rem; background: rgba(255,255,255,0.5); }
+  header.navbar.dark { background: rgba(0,0,0,0.5); }
+  main.about-page { padding: 2rem; max-width: 900px; margin: auto; }
+  .features ul { list-style: none; padding:0; }
+  .features li { margin: 0.5rem 0}
+</style>
+</head>
+<body class="light">
+
+<header class="navbar">
+  <h1 class="logo" data-key="logo"> StudyPlanner</h1>
+  <nav>
+    <a href="dashboard.html" data-key="navDashboard">Dashboard</a>
+    <a href="planner.html" data-key="navPlanner">Study Plan</a>
+    <a href="progress.html" data-key="navProgress">Progress</a>
+    <a href="settings.html" data-key="navSettings">Settings</a>
+    <a href="about.html" class="active" data-key="navAbout">About</a>
+    <button id="themeToggleHeader">🌙</button>
+  </nav>
+</header>
+
+<main class="about-page">
+  <h2 data-key="aboutTitle">About StudyPlanner</h2>
+  <p data-key="aboutIntro">StudyPlanner helps you organize your daily and weekly study routine, track progress, and reach your goals.</p>
+
+  <section class="features">
+    <h3 data-key="featuresTitle">Core Features</h3>
+    <ul>
+      <li data-key="feature1"> Create daily and weekly study plans</li>
+      <li data-key="feature2">Set study goals and track completion</li>
+      <li data-key="feature3">Monitor your progress over time</li>
+      <li data-key="feature4">Focus on personal growth and skill development</li>
+      <li data-key="feature5">Organize core subjects efficiently</li>
+    </ul>
+  </section>
+
+  <section class="mission">
+    <h3 data-key="missionTitle">Our Mission</h3>
+    <p data-key="missionText">We empower students to take responsibility for their learning, improve problem-solving skills, and grow daily.</p>
+  </section>
+</main>
+<footer>
+  <p>this website was created by student of software development
+    Adjira Bkiran kevin.
+  </p>
+  <section class="developer-box">
+  <h2>About the Developer</h2>
+
+  <div class="developer-content">
+    <img src="image2.jpg" alt="image2">
+
+    <div class="developer-text">
+      <h3>Adjira Bkiran</h3>
+      <p>
+        I am a passionate web developer and student who loves building modern,
+        user-friendly websites and applications. I focus on HTML, CSS,
+        JavaScript, and creating solutions that help students learn better.
+      </p>
+
+      <p class="skills">
+        <strong>Skills:</strong> HTML • CSS • JavaScript • UI Design
+      </p>
+    </div>
+  </div>
+</section>
+
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const body=document.body;
+  const themeHeaderBtn=document.getElementById("themeToggleHeader");
+
+  const translations={
+    en:{logo:" StudyPlanner", navDashboard:"Dashboard", navPlanner:"Study Plan", navProgress:"Progress", navSettings:"Settings", navAbout:"About",
+        aboutTitle:"About StudyPlanner", aboutIntro:"StudyPlanner helps you organize your daily and weekly study routine, track progress, and reach your goals.",
+        featuresTitle:"Core Features", feature1:" Create daily and weekly study plans", feature2:" Set study goals and track completion", feature3:" Monitor your progress over time", feature4:" Focus on personal growth and skill development", feature5:" Organize core subjects efficiently",
+        missionTitle:"Our Mission", missionText:"We empower students to take responsibility for their learning, improve problem-solving skills, and grow daily."},
+    fr:{logo:"Planificateur", navDashboard:"Tableau de bord", navPlanner:"Plan d'étude", navProgress:"Progrès", navSettings:"Paramètres", navAbout:"À propos",
+        aboutTitle:"À propos de StudyPlanner", aboutIntro:"StudyPlanner vous aide à organiser votre routine d'étude quotidienne et hebdomadaire, suivre les progrès et atteindre vos objectifs.",
+        featuresTitle:"Fonctionnalités principales", feature1:"Créez des plans d'étude quotidiens et hebdomadaires", feature2:"Définissez des objectifs et suivez leur accomplissement", feature3:"Suivez vos progrès au fil du temps", feature4:"Concentrez-vous sur la croissance personnelle et le développement des compétences", feature5:"Organisez efficacement les matières principales",
+        missionTitle:"Notre Mission", missionText:"Nous permettons aux étudiants de prendre la responsabilité de leur apprentissage, d'améliorer leurs compétences en résolution de problèmes et de progresser quotidiennement."},
+    es:{logo:"Planificador", navDashboard:"Tablero", navPlanner:"Plan de estudio", navProgress:"Progreso", navSettings:"Configuración", navAbout:"Acerca de",
+        aboutTitle:"Acerca de StudyPlanner", aboutIntro:"StudyPlanner te ayuda a organizar tu rutina diaria y semanal de estudio, seguir tu progreso y alcanzar tus metas.",
+        featuresTitle:"Funciones principales", feature1:"Crea planes de estudio diarios y semanales", feature2:"Establece metas y realiza seguimiento", feature3:"Monitorea tu progreso con el tiempo", feature4:"Enfócate en crecimiento personal y desarrollo de habilidades", feature5:"Organiza eficientemente las materias principales",
+        missionTitle:"Nuestra Misión", missionText:"Empoderamos a los estudiantes para que tomen responsabilidad de su aprendizaje, mejoren sus habilidades de resolución de problemas y crezcan cada día."}
+  };
+
+  // Load settings
+  let savedTheme = localStorage.getItem("theme") || "light";
+  let savedLang = localStorage.getItem("language") || "en";
+
+  body.classList.remove("light","dark");
+  body.classList.add(savedTheme);
+  themeHeaderBtn.textContent = savedTheme==="dark"?"☀️":"🌙";
+
+  function updateLanguage(lang){
+    document.querySelectorAll("[data-key]").forEach(el=>{
+      const key=el.getAttribute("data-key");
+      if(translations[lang][key]) el.innerText=translations[lang][key];
+    });
+  }
+  updateLanguage(savedLang);
+
+  // Theme toggle
+  themeHeaderBtn.addEventListener("click",()=>{
+    const isLight = body.classList.contains("light");
+    body.classList.remove(isLight?"light":"dark");
+    body.classList.add(isLight?"dark":"light");
+    localStorage.setItem("theme",isLight?"dark":"light");
+    themeHeaderBtn.textContent = isLight?"☀️":"🌙";
+  });
+
+  // Real-time updates from storage
+  window.addEventListener("storage",()=>{
+    let theme = localStorage.getItem("theme") || "light";
+    let lang = localStorage.getItem("language") || "en";
+    body.classList.remove("light","dark");
+    body.classList.add(theme);
+    themeHeaderBtn.textContent = theme==="dark"?"☀️":"🌙";
+    updateLanguage(lang);
+  });
+
+});
+</script>
+
+</body>
+</html>
